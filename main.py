@@ -12,9 +12,20 @@ def factorBrute(A):
 	return vals
 
 def sumFactors(vals):
-	
-	return
+	factorSum=0
+	for a in vals:
+		factorSum+=a	
+	return factorSum
 
 
-vals=factorBrute(90)
-sumFactors(vals)
+
+NUMBER=4096
+numArray=[7,6,28,100,8128,256,512,1024,33550336]
+for NUMBER in numArray:
+	vals=factorBrute(NUMBER)
+	if sumFactors(vals)==NUMBER:
+		print "Perfect number! Sum of "+str(NUMBER)+" is "+str(sumFactors(vals))
+	elif sumFactors(vals)==1:
+		print "Prime number! "+str(NUMBER)+"'s factor sum is 1"
+	else:
+		print "non perfect, sum of "+str(NUMBER)+"'s factors is "+str(sumFactors(vals))
