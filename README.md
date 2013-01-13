@@ -1,4 +1,4 @@
 primes
 ======
 
-library for prime numbers, playground 
+just a repo for miscellaneous code
