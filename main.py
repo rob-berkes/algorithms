@@ -35,7 +35,15 @@ for line in IFILE:
 IFILE.close()
 #for item in range(0,len(SORTME)-1):
 #SORTME=QuickSort(SORTME,1)
-NEWSORT=sorting.QuickSort(SORTME)
+
+
+#NEWSORT=sorting.QuickSort(SORTME)
+NEWSORT=sorting.BubbleSort(SORTME)
+
+
+
+
+
 #print SORTME
 OFILE=open('rand.sorted','w')
 for a in NEWSORT:
