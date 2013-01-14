@@ -23,8 +23,10 @@ def sumFactors(vals):
 
 def QuickSort(A):
 	if len(A)==1:
+		print A
 		return A
 	elif len(A)==0:
+		print A
 		return A
 	else:
 		PartitionValue=A[random.randint(0,len(A)-1)]
@@ -32,12 +34,12 @@ def QuickSort(A):
 		lesser=[]
 		greater=[]
 	
-		for val in range(0,len(A)-1):
+		for val in range(0,len(A)):
 			if A[val] <= PartitionValue:
 				lesser.append(A[val])
 			else:
 				greater.append(A[val])
-		print lesser,greater,PartitionValue
+		print 'Lesser: '+str(lesser)+' Greater: '+str(greater)+ ' PartVal: '+str(PartitionValue)
 	return QuickSort(lesser)+QuickSort(greater)			
 
 numArray=[33550336,10000000,10000001,10000233,]
