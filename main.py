@@ -21,35 +21,37 @@ def sumFactors(vals):
 	return factorSum
 
 
-def QuickSort(A):
+def QuickSort(A,Depth):
+	Depth+=1
 	if len(A)==1:
-		print A
+		print "return from Depth "+str(Depth)+" , values "+str(A)
 		return A
 	elif len(A)==0:
-		print A
+		print "return from Depth "+str(Depth)+" , values "+str(A)
 		return A
 	else:
-		PartitionValue=A[random.randint(0,len(A)-1)]
-	
+		PartIndex=random.randint(0,len(A)-1)
+		PartitionValue=A.pop(PartIndex)
 		lesser=[]
 		greater=[]
-	
 		for val in range(0,len(A)):
 			if A[val] <= PartitionValue:
 				lesser.append(A[val])
 			else:
 				greater.append(A[val])
-		print 'Lesser: '+str(lesser)+' Greater: '+str(greater)+ ' PartVal: '+str(PartitionValue)
-	return QuickSort(lesser)+QuickSort(greater)			
+		print 'Depth: '+str(Depth)+' Lesser: '+str(lesser)+' Greater: '+str(greater)+ ' PartVal: '+str(PartitionValue)
+		pv=[]
+		pv.append(PartitionValue)
+	return QuickSort(lesser,Depth)+pv+QuickSort(greater,Depth)			
 
-numArray=[33550336,10000000,10000001,10000233,]
-SORTME=[99,88,77,66,111,1,22,44,33,55,]
-#SORTME=[3,6,4,2,7,22,635,23,78,99,642,22,99,123,55,66,88,21,3,3,13,31,41,14,51,61,161,15,14,16,88,999,1234,555,777,888,999,]
-#SORTME=[8,3,3,2,5,]
-
+#numArray=[33550336,10000000,10000001,10000233,]
+#SORTME=[99,24,88,77,66,111,1,22,44,33,55,]
+SORTME=[3,6,4,2,7,22,635,23,78,99,642,22,99,123,55,66,88,21,3,3,13,31,41,14,51,61,161,15,14,16,88,999,1234,555,777,888,999,]
+#SORTME=[1,8,3,3,2,5,]
+#SORTME=[2,2,1,]
 print SORTME
 #for item in range(0,len(SORTME)-1):
-SORTME=QuickSort(SORTME)
+SORTME=QuickSort(SORTME,1)
 
 print SORTME
 #for NUMBER in range(200000000,200000100):
