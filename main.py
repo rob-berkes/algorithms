@@ -44,15 +44,28 @@ def QuickSort(A,Depth):
 		pv.append(PartitionValue)
 	return QuickSort(lesser,Depth)+pv+QuickSort(greater,Depth)			
 
+def BubbleSort(A):
+	swap_done=True
+	while swap_done:
+		swap_done=False
+		for valu in range(0,len(A)-1):
+			if A[valu] > A[valu+1]:
+				swap_done=True
+				t=A[valu+1]
+				A[valu+1]=A[valu]
+				A[valu]=t
+
+	return A
+
 #numArray=[33550336,10000000,10000001,10000233,]
-#SORTME=[99,24,88,77,66,111,1,22,44,33,55,]
-SORTME=[3,6,4,2,7,22,635,23,78,99,642,22,99,123,55,66,88,21,3,3,13,31,41,14,51,61,161,15,14,16,88,999,1234,555,777,888,999,]
-#SORTME=[1,8,3,3,2,5,]
-#SORTME=[2,2,1,]
+SORTME=[99,24,88,77,66,111,1,22,44,33,55,]
+SORTME+=[3,6,4,2,7,22,635,23,78,99,642,22,99,123,55,66,88,21,3,3,13,31,41,14,51,61,161,15,14,16,88,999,1234,555,777,888,999,]
+SORTME+=[1,8,3,3,2,5,]
+SORTME+=[2,2,1,]
 print SORTME
 #for item in range(0,len(SORTME)-1):
-SORTME=QuickSort(SORTME,1)
-
+#SORTME=QuickSort(SORTME,1)
+BubbleSort(SORTME)
 print SORTME
 #for NUMBER in range(200000000,200000100):
 #	vals=factorBrute(NUMBER)
