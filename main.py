@@ -1,24 +1,5 @@
 from lib import sorting 
-
-def factorBrute(A):
-	n=2
-	newmax=A
-	vals=[1,]
-	count=0
-	for n in range(2,newmax):
-		count+=1
-		if A % n == 0:
-			vals.append(n)
-			newmax=int(A/n)
-
-	print vals
-	return vals,count
-
-def sumFactors(vals):
-	factorSum=0
-	for a in vals:
-		factorSum+=a	
-	return factorSum
+from lib import factoring 
 
 
 
@@ -29,34 +10,42 @@ SORTME=[]
 #SORTME+=[1,8,3,3,2,5,]
 #SORTME=[2,2,1,]
 #print SORTME
-IFILE=open('rand.list','r')
-for line in IFILE:
-	SORTME.append(int(line))
-IFILE.close()
+#IFILE=open('rand.list','r')
+#for line in IFILE:
+#	SORTME.append(int(line))
+#IFILE.close()
 #for item in range(0,len(SORTME)-1):
 #SORTME=QuickSort(SORTME,1)
 
 
 #NEWSORT=sorting.QuickSort(SORTME)
-NEWSORT=sorting.BubbleSort(SORTME)
+#NEWSORT=sorting.BubbleSort(SORTME)
 
 
 
 
 
 #print SORTME
-OFILE=open('rand.sorted','w')
-for a in NEWSORT:
-	OFILE.write(str(a)+'\n')
-OFILE.close()
-#for NUMBER in range(200000000,200000100):
-#	vals=factorBrute(NUMBER)
+#OFILE=open('rand.sorted','w')
+#for a in NEWSORT:
+#	OFILE.write(str(a)+'\n')
+#OFILE.close()
+
+OFILE=open('output.factorsums','w')
+for NUMBER in range(0,2015):
+	vals,count=factoring.factorBrute(NUMBER)
+	OFILE.write(str(NUMBER)+' '+str(factoring.sumFactors(vals))+'\n')
 #	if sumFactors(vals)==NUMBER:
+#		pass
 #		print "Perfect number! Sum of "+str(NUMBER)+" is "+str(sumFactors(vals))
 #	elif sumFactors(vals)==1:
 #		print "Prime number! "+str(NUMBER)+"'s factor sum is 1"
 #	else:
+#		pass
 #		print "non perfect, sum of "+str(NUMBER)+"'s factors is "+str(sumFactors(vals))
+
+OFILE.close()
+
 #NUMBER=4096
 #numArray=[7,6,28,100,8128,256,512,1024,33550336]
 #for NUMBER in numArray:
