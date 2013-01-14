@@ -1,4 +1,4 @@
-import random
+from lib import sorting 
 
 def factorBrute(A):
 	n=2
@@ -21,41 +21,6 @@ def sumFactors(vals):
 	return factorSum
 
 
-def QuickSort(A,Depth):
-	Depth+=1
-	if len(A)==1:
-#		print "return from Depth "+str(Depth)+" , values "+str(A)
-		return A
-	elif len(A)==0:
-#		print "return from Depth "+str(Depth)+" , values "+str(A)
-		return A
-	else:
-		PartIndex=random.randint(0,len(A)-1)
-		PartitionValue=A.pop(PartIndex)
-		lesser=[]
-		greater=[]
-		for val in range(0,len(A)):
-			if A[val] <= PartitionValue:
-				lesser.append(A[val])
-			else:
-				greater.append(A[val])
-#		print 'Depth: '+str(Depth)+' Lesser: '+str(lesser)+' Greater: '+str(greater)+ ' PartVal: '+str(PartitionValue)
-		pv=[]
-		pv.append(PartitionValue)
-	return QuickSort(lesser,Depth)+pv+QuickSort(greater,Depth)			
-
-def BubbleSort(A):
-	swap_done=True
-	while swap_done:
-		swap_done=False
-		for valu in range(0,len(A)-1):
-			if A[valu] > A[valu+1]:
-				swap_done=True
-				t=A[valu+1]
-				A[valu+1]=A[valu]
-				A[valu]=t
-
-	return A
 
 SORTME=[]
 #numArray=[33550336,10000000,10000001,10000233,]
@@ -70,7 +35,7 @@ for line in IFILE:
 IFILE.close()
 #for item in range(0,len(SORTME)-1):
 #SORTME=QuickSort(SORTME,1)
-NEWSORT=BubbleSort(SORTME)
+NEWSORT=sorting.QuickSort(SORTME)
 #print SORTME
 OFILE=open('rand.sorted','w')
 for a in NEWSORT:
