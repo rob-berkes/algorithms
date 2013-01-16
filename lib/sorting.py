@@ -19,6 +19,24 @@ def QuickSort(A):
                 pv.append(PartitionValue)
         return QuickSort(lesser)+pv+QuickSort(greater)
 
+def QuickSort(A,IndexValue):
+        if len(A)==1:
+                return A
+        elif len(A)==0:
+                return A
+        else:
+                PartIndex=random.randint(0,len(A)-1)
+                PartitionValue=A.pop(PartIndex)
+                lesser=()
+                greater=()
+                for val in range(0,len(A)):
+                        if A[val][IndexValue] <= PartitionValue[IndexValue]:
+                                lesser.append(A[val])
+                        else:
+                                greater.append(A[val])
+                pv=[]
+                pv.append(PartitionValue)
+        return QuickSort(lesser)+pv+QuickSort(greater)
 def BubbleSort(A):
         swap_done=True
         while swap_done:

@@ -10,15 +10,15 @@ SORTME=[]
 #SORTME+=[1,8,3,3,2,5,]
 #SORTME=[2,2,1,]
 #print SORTME
-#IFILE=open('rand.list','r')
-#for line in IFILE:
-#	SORTME.append(int(line))
-#IFILE.close()
+IFILE=open('rand.list','r')
+for line in IFILE:
+	SORTME.append(int(line))
+IFILE.close()
 #for item in range(0,len(SORTME)-1):
 #SORTME=QuickSort(SORTME,1)
 
 
-#NEWSORT=sorting.QuickSort(SORTME)
+NEWSORT=sorting.QuickSort(SORTME)
 #NEWSORT=sorting.BubbleSort(SORTME)
 
 
@@ -26,15 +26,20 @@ SORTME=[]
 
 
 #print SORTME
-#OFILE=open('rand.sorted','w')
-#for a in NEWSORT:
-#	OFILE.write(str(a)+'\n')
-#OFILE.close()
+OFILE=open('rand.sorted','w')
+for a in NEWSORT:
+	OFILE.write(str(a)+'\n')
+OFILE.close()
 
-OFILE=open('output.factorsums','w')
-for NUMBER in range(0,2015):
-	vals,count=factoring.factorBrute(NUMBER)
-	OFILE.write(str(NUMBER)+' '+str(factoring.sumFactors(vals))+'\n')
+
+
+#OFILE=open('output.factorsums','w')
+#for NUMBER in range(0,2015):
+#	vals,count=factoring.factorBrute(NUMBER)
+#	OFILE.write(str(NUMBER)+' '+str(factoring.sumFactors(vals))+'\n')
+
+
+
 #	if sumFactors(vals)==NUMBER:
 #		pass
 #		print "Perfect number! Sum of "+str(NUMBER)+" is "+str(sumFactors(vals))
@@ -44,7 +49,7 @@ for NUMBER in range(0,2015):
 #		pass
 #		print "non perfect, sum of "+str(NUMBER)+"'s factors is "+str(sumFactors(vals))
 
-OFILE.close()
+#OFILE.close()
 
 #NUMBER=4096
 #numArray=[7,6,28,100,8128,256,512,1024,33550336]
