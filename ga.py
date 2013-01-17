@@ -4,6 +4,8 @@ class __CHROMO__:
 		value1=random.randint(0,10)+5.0
 		value2=random.randint(0,10)-5.0
 		score=0
+	value1=random.randint(0,10)+5.0
+	value2=random.randint(0,10)-5.0
 	score=0
 
 
@@ -16,9 +18,8 @@ def initRay():
 	v2=random.randint(0,10)-5.0
 	return	v1,v2
 
-for a in range(0,2):
-	v1,v2=initRay()
-	print v1,v2
+for a in range(0,POPULATION):
 	FULLRAY.append(__CHROMO__())
 
-print FULLRAY[0]('value1')
+print FULLRAY[99].value1
+print FULLRAY[99].value2
