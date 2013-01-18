@@ -1,4 +1,5 @@
 import random
+import math
 class __CHROMO__:
 	def __init__(self):
 		return
@@ -13,19 +14,19 @@ class __CHROMO__:
 
 		
 POPULATION=2000
-GENERATIONS=50
+GENERATIONS=10
 FULLRAY=[]
 
 
 # Equation: 8x^2-10x-3
 def evalu(value1,value2):
-	score1=((value1*value1)*4)+(value1*4)+2
-	score2=((value2*value2)*4)-(value2*4)+2
-	summa=abs(score1)+abs(score2)
+	score1=((value1*value1)*3)-(value1*2)+3
+	score2=((value2*value2)*3)-(value2*2)+3
+	summa=score1+score2
 	return summa
 def InitVars():
 	v1=random.random()*10+5.0
-	v2=random.random()*10-5.0
+	v2=random.random()*-10-5.0
 	return v1,v2
 def InitArray(FULLRAY,POPULATION):
 
@@ -39,7 +40,7 @@ def InitArray(FULLRAY,POPULATION):
 
 	return
 def CrossOver(b1,b2,v1,v2,modus):
-	MU_RATE=0.0001
+	MU_RATE=1.001
 	if modus==0: 
 		new1=(b1+v1)*MU_RATE
 		new2=(b2+v2)*MU_RATE
@@ -51,34 +52,36 @@ def CrossOver(b1,b2,v1,v2,modus):
 		new2=(b2-v2)*MU_RATE
 	elif modus==3:
 		new1=(b1-v2)*MU_RATE
-		new2=(b2-v1)*MU_RATE
+		new2=(v1-b2)*MU_RATE
  	elif modus==4:
 		new1=(b1+v1)*MU_RATE
-		new2=(b2-v2)*MU_RATE
+		new2=(v2-b2)*MU_RATE
 	elif modus==5:
-		new1=(b1-v1)*MU_RATE
+		new1=(v1-b1)*MU_RATE
 		new2=(b2+v2)*MU_RATE
  	elif modus==6:
 		new1=(b1+v2)*MU_RATE
 		new2=(b2+v1)*MU_RATE
 	elif modus== 7:
-		new1=(b1-v2)*MU_RATE
+		new1=(v2-b1)*MU_RATE
 		new2=(b2+v1)*MU_RATE
 	return new1,new2
-def findBest(FULLRAY):
+def findBest(FULLRAY,ScoreBest):
 	IndexBest=0
-	ScoreBest=99999
 	IndexSecond=0
 	ActualIndex=0
+	t1=0
+	t2=0
 	for a in FULLRAY:
-		if a.score < ScoreBest:
+		if abs(a.score) < abs(ScoreBest):
 			IndexSecond=IndexBest
 			IndexBest=ActualIndex
 			ScoreBest=a.score
+			t1=a.value1
+			t2=a.value2
 		ActualIndex+=1
 
-	print ActualIndex
-	return IndexBest,IndexSecond
+	return IndexBest,IndexSecond,t1,t2,ScoreBest
 
 def popArray(NEWARRAY,FULLRAY,NEWCOUNT,IndexBest,POPULATION):
 	for a in range(0,POPULATION):
@@ -103,23 +106,26 @@ def CrossOverBest(NEWARRAY,FULLRAY,NEWCOUNT,IndexBest,IndexSecond):
 
 	return
 
-def printArray(ARRAY,IndexBest,IndexSecond):
-	print IndexBest,ARRAY[IndexBest].value1,ARRAY[IndexBest].value2,ARRAY[IndexBest].score
-	print IndexSecond,ARRAY[IndexSecond].value1,ARRAY[IndexSecond].value2,ARRAY[IndexSecond].score
+def printArray(ARRAY,IndexBest,IndexSecond,ScoreBest):
+	print ScoreBest,IndexBest,IndexSecond
+#	print IndexBest,ARRAY[IndexBest].value1,ARRAY[IndexBest].value2,ARRAY[IndexBest].score
+#	print IndexSecond,ARRAY[IndexSecond].value1,ARRAY[IndexSecond].value2,ARRAY[IndexSecond].score
 	return
 
-InitArray(FULLRAY,POPULATION)
-IndexBest,IndexSecond=findBest(FULLRAY)
 
-printArray(FULLRAY,IndexBest,IndexSecond)
+
+ScoreBest=10000
+InitArray(FULLRAY,POPULATION)
+IndexBest,IndexSecond,t1,t2,ScoreBest=findBest(FULLRAY,ScoreBest)
+
+printArray(FULLRAY,IndexBest,IndexSecond,ScoreBest)
 
 NEWCOUNT=0
 NEWARRAY=FULLRAY
-
 for n in range(1,GENERATIONS):
 	popArray(NEWARRAY,FULLRAY,NEWCOUNT,IndexBest,POPULATION)
+	IndexBest,IndexSecond,t1,t2,ScoreBest=findBest(NEWARRAY,ScoreBest)
 	CrossOverBest(NEWARRAY,FULLRAY,NEWCOUNT,IndexBest,IndexSecond)
-	IndexBest,IndexSecond=findBest(NEWARRAY)
 	print "Generation: "+str(n)+'\n'
-	printArray(NEWARRAY,IndexBest,IndexSecond)
+	printArray(NEWARRAY,t1,t2,ScoreBest)
 	FULLRAY=NEWARRAY
