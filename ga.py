@@ -20,8 +20,8 @@ FULLRAY=[]
 
 # Equation: 8x^2-10x-3
 def evalu(value1,value2):
-	score1=((value1*value1)*3)-(value1*2)+3
-	score2=((value2*value2)*3)-(value2*2)+3
+	score1=((value1*value1)*13.0)-(value1*5.0)-10.0
+	score2=((value2*value2)*13.0)-(value2*5.0)-10.0
 	summa=score1+score2
 	return summa
 def InitVars():
@@ -40,7 +40,7 @@ def InitArray(FULLRAY,POPULATION):
 
 	return
 def CrossOver(b1,b2,v1,v2,modus):
-	MU_RATE=1.001
+	MU_RATE=.001
 	if modus==0: 
 		new1=(b1+v1)*MU_RATE
 		new2=(b2+v2)*MU_RATE
