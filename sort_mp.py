@@ -14,7 +14,7 @@ if __name__ == '__main__' :
 	OFILE.close()
 	print 'done reading list .... starting mulitple procs'
 
-	n=5  #proc to start
+	n=3  #proc to start
 	pconn,cconn=Pipe()
 	lyst=[]
 	p=Process(target=sorting.QuickSortMPListArray,args=(UNSORTLIST,cconn,n))
