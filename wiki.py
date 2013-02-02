@@ -5,16 +5,14 @@ from lib import sorting
 OFILE=open("rand.list","r")
 UNSORTLIST=[]
 for line in OFILE:
-#	line=line.strip().split(' # ')
-#	TUP=(line[0],line[1],line[2])
-#	UNSORTLIST+=TUP
+	line=line.strip()
 	UNSORTLIST.append(line)
 OFILE.close()
 
-SORTLIST=sorting.QuickSort(UNSORTLIST,0)
+SORTLIST=sorting.QuickSortMP(UNSORTLIST)
 
-#OUTPUT=open("/home/rob/hits.sorted","r")
-OUTPUT=open("rand.sorted","r")
+#OUTPUT=open("/home/rob/hits.sorted","w")
+OUTPUT=open("rand.sorted","w")
 for line in SORTLIST:
 	OUTPUT.write(line)
 	OUTPUT.write('\n')
