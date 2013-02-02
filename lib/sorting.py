@@ -1,6 +1,5 @@
 import random
 from multiprocessing import Process,Manager,Pipe
-import pdb
 def QuickSort(A):
         if len(A)==1:
                 return A
@@ -21,7 +20,6 @@ def QuickSort(A):
         return QuickSort(lesser)+pv+QuickSort(greater)
 
 def QuickSortMP(A,conn,NumProcs):
-#	pdb.set_trace()
         if len(A)<=1 :
 		conn.send(A)
 		conn.close()
@@ -46,7 +44,6 @@ def QuickSortMP(A,conn,NumProcs):
 
 		leftStr=pConnLeft.recv()
 		rightStr=pConnRight.recv()
-
 		conn.send(leftStr+[PartitionValue]+rightStr)
 #		conn.send(pConnLeft.recv()+[PartitionValue]+pConnRight.recv())
 		conn.close()
