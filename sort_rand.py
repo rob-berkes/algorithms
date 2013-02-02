@@ -22,9 +22,7 @@ if __name__ == '__main__' :
 
 	#print NEWSORT
 	#NEWSORT=sorting.BubbleSort(SORTME)
-	res=pool.apply_async(sorting.QuickSort,SME)
-	while pool.is_alive():
-		pass
+	res=pool.apply_async(sorting.QuickSortMP,SME)
 	RESULT=res.get()
 	print RESULT
 	print SME

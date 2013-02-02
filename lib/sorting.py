@@ -1,6 +1,6 @@
 import random
-from multiprocessing import Process,Manager
-
+from multiprocessing import Process,Manager,Pipe
+import pdb
 def QuickSort(A):
         if len(A)==1:
                 return A
@@ -20,32 +20,43 @@ def QuickSort(A):
                 pv.append(PartitionValue)
         return QuickSort(lesser)+pv+QuickSort(greater)
 
-def QuickSortMP(A):
-        if len(A)==1:
-                return A
-        elif len(A)==0:
-                return A
+def QuickSortMP(A,conn,NumProcs):
+#	pdb.set_trace()
+        if len(A)<=1 :
+		conn.send(A)
+		conn.close()
+	elif int(NumProcs)<1:
+		conn.send(QuickSort(A))
+		conn.close()
         else:
                 PartIndex=random.randint(0,len(A)-1)
                 PartitionValue=A.pop(PartIndex)
-                lesser=[]
-                greater=[]
-                for val in range(0,len(A)):
-                        if A[val] <= PartitionValue:
-                                lesser.append(A[val])
-                        else:
-                                greater.append(A[val])
-                pv=[]
-                pv.append(PartitionValue)
-		l1=lesser
-		g1=greater
-		p1=Process(target='QuickSortMP',args=l1)
-		p2=Process(target='QuickSortMP',args=g1)
-		p1.start()
-		p2.start()
-		p1.join()
-		p2.join()
-        return 
+                lesser=[x for x in A if x < PartitionValue]
+                greater=[x for x in A if x >= PartitionValue]
+		Procs=int(NumProcs)-1
+
+		pConnLeft,cConnLeft=Pipe()
+		leftProc=Process(target=QuickSortMP,args=(lesser,cConnLeft,Procs))
+		pConnRight,cConnRight=Pipe()
+		rightProc=Process(target=QuickSortMP,args=(greater,cConnRight,Procs))
+		
+
+		leftProc.start()
+		rightProc.start()
+
+		leftStr=pConnLeft.recv()
+		rightStr=pConnRight.recv()
+
+		conn.send(leftStr+[PartitionValue]+rightStr)
+#		conn.send(pConnLeft.recv()+[PartitionValue]+pConnRight.recv())
+		conn.close()
+	
+		leftProc.join()
+		rightProc.join()
+        return
+def QuickSortStub(A,conn,NumProcs):
+
+	return
 #def QuickSort(A,IndexValue):
 #        if len(A)==1:
 #                return A
