@@ -28,17 +28,10 @@ def QuickSortListArray(A):
         else:
                 PivotIndex=random.randint(0,len(A)-1)
                 PivotValue=A.pop(PivotIndex)
-                lesser=[]
-                greater=[]
-                pv=[]
-                pv.append(PivotValue)
-                for val in A:
-                        if int(val[0]) <= PivotValue[0]:
-                                lesser.append(val)
-			elif int(val[0]) == PivotValue[0]:
-				pv.append(val)
-                        else:
-                                greater.append(val)
+                lesser=[x for x in A if int(x[0]) < int(PivotValue[0])]
+                greater=[x for x in A if int(x[0]) > int(PivotValue[0])]
+                pv=[x for x in A if int(x[0]) == int(PivotValue[0])]
+	print str(len(A))+' qsla done'
         return QuickSortListArray(lesser)+pv+QuickSortListArray(greater)
 
 def QuickSortMP(A,conn,NumProcs):
@@ -76,20 +69,20 @@ def QuickSortMP(A,conn,NumProcs):
 		rightProc.join()
         return
 def QuickSortMPListArray(A,conn,NumProcs):
-	print 'starting mplarray'
+	print str(len(A))+' starting mplarray'
         if len(A)<=1 :
 		conn.send(A)
 		conn.close()
 	elif int(NumProcs)<1:
+		print 'proc limit reached, smp qs'
 		conn.send(QuickSortListArray(A))
 		conn.close()
         else:
                 PivotIndex=random.randint(0,len(A)-1)
                 PivotValue=A.pop(PivotIndex)
-		pv=[]
-		pv.append(PivotValue)
-                lesser=[x for x in A if x[0] < PivotValue]
-                greater=[x for x in A if x[0] >= PivotValue]
+                lesser=[x for x in A if int(x[0]) < int(PivotValue[0])]
+                greater=[x for x in A if int(x[0]) > int(PivotValue[0])]
+		pv=[x for x in A if int(x[0]) == int(PivotValue[0])]
 		Procs=int(NumProcs)-1
 		
 		pConnLeft,cConnLeft=Pipe()
@@ -100,10 +93,8 @@ def QuickSortMPListArray(A,conn,NumProcs):
 
 		leftProc.start()
 		rightProc.start()
-
-		leftStr=pConnLeft.recv()
-		rightStr=pConnRight.recv()
-		conn.send(leftStr+pv+rightStr)
+		print 'mplarray send'
+		conn.send(pConnLeft.recv()+pv+pConnRight.recv())
 #		conn.send(pConnLeft.recv()+[PivotValue]+pConnRight.recv())
 		conn.close()
 	
