@@ -4,7 +4,7 @@ import random
 import sys
 if __name__ == '__main__' :
 	sys.setrecursionlimit(2000)
-	n=7  #number partitions to break into
+	n=12  #number partitions to break into
 #	SORTME=[9,4,3,5,8,11,234,22,2355,78,3,99,4,788,100,22,234,34442,1,55,666,4478,85,332,7712,2,4,777,5,]
 #	SORTME=[(random.randint(0,9999999),2,4) for x in range(1000000)]
 	OFILE=open("/home/ec2-user/hits.list","r")
