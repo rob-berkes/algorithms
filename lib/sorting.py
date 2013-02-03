@@ -78,11 +78,10 @@ def QuickSortMPListArray(A,conn,NumProcs):
 		conn.send(QuickSortListArray(A))
 		conn.close()
         else:
-                PivotIndex=random.randint(0,len(A)-1)
-                PivotValue=A.pop(PivotIndex)
-                lesser=[x for x in A if int(x[0]) < int(PivotValue[0])]
-                greater=[x for x in A if int(x[0]) > int(PivotValue[0])]
-		pv=[x for x in A if int(x[0]) == int(PivotValue[0])]
+                pvalue=A[0]
+                lesser=[x for x in A if int(x[0]) < int(pvalue[0])]
+                greater=[x for x in A if int(x[0]) > int(pvalue[0])]
+		pv=[x for x in A if int(x[0]) == int(pvalue[0])]
 		Procs=int(NumProcs)-1
 		
 		pConnLeft,cConnLeft=Pipe()
