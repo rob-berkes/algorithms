@@ -121,7 +121,7 @@ def QuickSortMPListArray(A,conn,NumProcs):
 		leftProc.start()
 		rightProc.start()
 		print 'mplarray send'
-		conn.send(pConnLeft.recv()+pv+pConnRight.recv())
+		conn.send(pConnRight.recv()+pv+pConnLeft.recv())
 #		conn.send(pConnLeft.recv()+[PivotValue]+pConnRight.recv())
 		conn.close()
 	
